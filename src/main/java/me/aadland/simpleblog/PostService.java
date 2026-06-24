@@ -20,4 +20,8 @@ public class PostService {
 	public Optional<Post> getPostById(ObjectId id) {
 		return postRepository.findById(id);
 	}
+	
+	public Post createPost(Post post) {
+		return postRepository.save(post);
+	}
 }

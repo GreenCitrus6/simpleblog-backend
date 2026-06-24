@@ -31,11 +31,25 @@ public class PostController {
 		return new ResponseEntity<Optional<Post>>(postService.getPostById(id), HttpStatus.OK);
 	}
 	
+	//delete endpoint
+	
 	@PostMapping
-	public ResponseEntity<String> createPost(@RequestBody PostRequest request) {
-		//write to mongodb
+	public ResponseEntity<Post> createPost(@RequestBody PostRequest request) {
+		//validate PostRequest content
+		//if valid, create Post and register to MongoDB
+		//else, return error
+		Post post = new Post();
+		post.setTitle(request.title());
+		post.setContent(request.content());
+		post.setCategory(request.category());
+		post.setTags(request.tags());
 		
-		return new ResponseEntity<String>("post succesfully created!", HttpStatus.OK);
+		Post savedPost = postService.createPost(post);
+		
+		return new ResponseEntity<Post>(savedPost, HttpStatus.OK);
 		
 	}
+	
+	//put endpoint
+	
 }
