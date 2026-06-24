@@ -17,6 +17,19 @@ public class PostService {
 		return postRepository.findAll();
 	}
 	
+	public List<Post> searchPostByTerm(String term) {
+		if (term == null || term.trim().isEmpty()) {
+			return postRepository.findAll();
+		}
+		
+		String safePattern = ".*" + escapeRegex(term) + "*.";
+		return postRepository.findByWildcard(safePattern);
+	}
+	
+	private String escapeRegex(String input) {
+        return input.replaceAll("[\\<\\(\\[\\{\\\\^\\$\\|\\?\\*\\+\\.\\)\\]\\}>]", "\\\\$0");
+    }
+	
 	public Optional<Post> getPostById(ObjectId id) {
 		return postRepository.findById(id);
 	}

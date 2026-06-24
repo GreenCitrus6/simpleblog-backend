@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,7 +25,14 @@ public class PostController {
 	private PostService postService;
 	
 	@GetMapping
-	public ResponseEntity<List<Post>> allPosts() {
+	public ResponseEntity<List<Post>> allPosts(
+			@RequestParam(required = false) String term
+			) {
+		
+		if (!term.isBlank()) {
+			return new ResponseEntity<List<Post>>(postService.searchPostByTerm(term), HttpStatus.OK);
+		}
+		
 		return new ResponseEntity<List<Post>>(postService.allPosts(), HttpStatus.OK);
 	}
 	
@@ -33,7 +41,7 @@ public class PostController {
 		return new ResponseEntity<Optional<Post>>(postService.getPostById(id), HttpStatus.OK);
 	}
 	
-	//delete endpoint
+	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<Void> deletePost(@PathVariable ObjectId id) {
 		//check if resource exists
@@ -62,7 +70,6 @@ public class PostController {
 		
 	}
 	
-	//put endpoint
 	@PutMapping("update/{id}")
 	public ResponseEntity<Post> updatePost(@PathVariable ObjectId id, @RequestBody Post postDetails) {
 		Post updatedPost = postService.update(id, postDetails);
