@@ -32,4 +32,22 @@ public class PostService {
 	public void deleteById(ObjectId id) {
 		postRepository.deleteById(id);
 	}
+	
+	public Post update(ObjectId id, Post postDetails) {
+		Optional<Post> optionalPost = postRepository.findById(id);
+		
+		if(optionalPost.isPresent()) {
+			Post current = optionalPost.get();
+			
+			current.setTitle(postDetails.getTitle());
+			current.setContent(postDetails.getContent());
+			current.setCategory(postDetails.getCategory());
+			current.setTags(postDetails.getTags());
+			
+			return postRepository.save(current);
+			
+		}
+		
+		return null;
+	}
 }
