@@ -21,7 +21,15 @@ public class PostService {
 		return postRepository.findById(id);
 	}
 	
+	public boolean existsByid(ObjectId id) {
+		return postRepository.existsById(id);
+	}
+	
 	public Post createPost(Post post) {
 		return postRepository.save(post);
+	}
+	
+	public void deleteById(ObjectId id) {
+		postRepository.deleteById(id);
 	}
 }

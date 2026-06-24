@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,13 +33,22 @@ public class PostController {
 	}
 	
 	//delete endpoint
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<Void> deletePost(@PathVariable ObjectId id) {
+		//check if resource exists
+		if (!postService.existsByid(id)) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		postService.deleteById(id);
+		
+		return ResponseEntity.noContent().build();
+	}
 	
-	@PostMapping
+	@PostMapping("/add")
 	public ResponseEntity<Post> createPost(@RequestBody PostRequest request) {
-		//validate PostRequest content
 		
 		//if valid, create Post and register to MongoDB
-		//else, return error
 		Post post = new Post();
 		post.setTitle(request.title());
 		post.setContent(request.content());
