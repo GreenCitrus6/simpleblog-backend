@@ -36,6 +36,7 @@ public class PostController {
 	@PostMapping
 	public ResponseEntity<Post> createPost(@RequestBody PostRequest request) {
 		//validate PostRequest content
+		
 		//if valid, create Post and register to MongoDB
 		//else, return error
 		Post post = new Post();
