@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,5 +29,13 @@ public class PostController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<Post>> getPostById(@PathVariable ObjectId id) {
 		return new ResponseEntity<Optional<Post>>(postService.getPostById(id), HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public ResponseEntity<String> createPost(@RequestBody PostRequest request) {
+		//write to mongodb
+		
+		return new ResponseEntity<String>("post succesfully created!", HttpStatus.OK);
+		
 	}
 }
