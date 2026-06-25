@@ -46,12 +46,12 @@ public class PostController {
 	public ResponseEntity<Void> deletePost(@PathVariable ObjectId id) {
 		//check if resource exists
 		if (!postService.existsByid(id)) {
-			return ResponseEntity.notFound().build();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
 		postService.deleteById(id);
 		
-		return ResponseEntity.noContent().build();
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 	
 	@PostMapping("/add")
@@ -75,10 +75,10 @@ public class PostController {
 		Post updatedPost = postService.update(id, postDetails);
 		
 		if (updatedPost == null) {
-			return ResponseEntity.notFound().build();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
-		return ResponseEntity.ok(updatedPost);
+		return new ResponseEntity<Post>(updatedPost, HttpStatus.OK);
 		
 	}
 	
