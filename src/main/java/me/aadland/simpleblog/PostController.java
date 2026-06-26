@@ -29,7 +29,7 @@ public class PostController {
 			@RequestParam(required = false) String term
 			) {
 		
-		if (!term.isBlank()) {
+		if (term != null) {
 			return new ResponseEntity<List<Post>>(postService.searchPostByTerm(term), HttpStatus.OK);
 		}
 		
