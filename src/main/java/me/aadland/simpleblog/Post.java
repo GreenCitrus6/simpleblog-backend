@@ -17,14 +17,14 @@ import lombok.NoArgsConstructor;
 public class Post {
 	
 	@Id
-	private ObjectId id;
+	private String id;
 	private String title;
 	private String content;
 	private String category;
 	private List<String> tags;
 	
 	//getters
-	public ObjectId getObjectId() {
+	public String getObjectId() {
 		return id;
 	}
 	public String getTitle() {
