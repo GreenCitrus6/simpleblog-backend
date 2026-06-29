@@ -41,7 +41,7 @@ public class Post {
 	}
 	
 	//setters
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public void setTitle(String title) {
